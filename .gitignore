@@ -39,7 +39,7 @@ desktop.ini
 *.dump
 *.sql.gz
 
-# ── Arduino / PlatformIO ─────────────────────────────────────
+# ── ESP32/ PlatformIO ─────────────────────────────────────
 .pio/
 .pioenvs/
 .piolibdeps/
