@@ -1,0 +1,57 @@
+name: WearCare CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-tests:
+    name: Backend — Testes Node.js
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: wearcare_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Instalar dependências
+        run: cd backend && npm ci
+
+      - name: Criar schema do banco
+        run: |
+          PGPASSWORD=postgres psql -h localhost -U postgres -d wearcare_test \
+            -f database/schema.sql
+
+      - name: Rodar testes
+        run: cd backend && npm test
+        env:
+          PGHOST: localhost
+          PGPORT: 5432
+          PGDATABASE: wearcare_test
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          JWT_SECRET: chave_de_teste_ci_apenas
+          MQTT_URL: mqtt://broker.hivemq.com
+          NODE_ENV: test
