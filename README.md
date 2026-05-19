@@ -79,17 +79,17 @@ O sistema foi desenvolvido como resposta ao acelerado envelhecimento da populaç
 │   mqttService → models → PostgreSQL              │
 │   API REST (JWT) · Socket.io (WebSocket)         │
 │   alertService → SMS + E-mail                    │
-└────────────┬──────────────────────┬─────────────┘
-             │ REST API             │ WebSocket
-             ▼                     ▼
+└────────────────┬──────────────────────┬─────────┘
+                 │ REST API             │ WebSocket
+                 ▼                     ▼
 ┌─────────────────────────────────────────────────┐
 │           Frontend — React                       │
 │   CardSinaisVitais · AlertaQueda · Dashboard     │
 │   Recharts (gráficos) · Leaflet (mapa GPS)       │
 └─────────────────────────────────────────────────┘
-                      │
-                      ▼
-              Familiar / Cuidador
+                       │
+                       ▼
+               Familiar / Cuidador
 ```
 
 ---
@@ -385,4 +385,3 @@ Este projeto foi desenvolvido para fins acadêmicos como Trabalho de Conclusão 
 *Desenvolvido com dedicação para proteger quem mais amamos* 🩺
 
 </div>
-#wearcare-tcc
